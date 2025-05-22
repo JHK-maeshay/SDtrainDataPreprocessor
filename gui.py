@@ -5,8 +5,6 @@ from source.image_namer import image_renaming
 from source.tag_convert_format import tag_converting
 from source.tag_modifier import tag_modifying
 import shutil
-import os
-import datetime
 
 INPUT_DIR = "INPUT_FILE_HERE"
 OUTPUT_DIR = "OUTPUT_HERE"
