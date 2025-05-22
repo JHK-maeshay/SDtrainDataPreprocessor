@@ -86,10 +86,13 @@ with gr.Blocks() as demo:
 
     with gr.Tab("개별 실행") as tab2:
         with gr.Row():
+            text1 = gr.Textbox(label="변경할 파일 이름", placeholder="ComfyUI")
+            text2 = gr.Textbox(label="추가 태그(텍스트)", placeholder="밑줄->공백, 괄호 앞에 \\")
+            text3 = gr.Textbox(label="삭제 태그(텍스트)", placeholder="예시 mari \\(blue archive\\)")
+        with gr.Row():
             b1 = gr.Button("이미지 변환")
             b2 = gr.Button("이미지 크롭")
             b3 = gr.Button("이미지 이름 변경")
-
         with gr.Row():
             b4 = gr.Button("태그 형식 변환")
             b5 = gr.Button("태그 추가/삭제")
