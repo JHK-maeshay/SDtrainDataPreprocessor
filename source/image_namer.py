@@ -1,6 +1,13 @@
 import os
 import shutil
-import gradio as gr
+from .counter_decorator import counter_deco
+
+@counter_deco
+def __rename__(log, i, filename, filepath, prefix, ext, outdir):
+    new_name = f"{prefix}_{i:04d}{ext}"
+    shutil.copy2(filepath, os.path.join(outdir, new_name))
+    log(f"[log]{filename} → {new_name}")
+    return new_name
 
 def image_renaming(log=print, prefix='comfyUI', ext=".png", indir='INPUT_FILE_HERE', outdir='OUTPUT_HERE'):
     """
@@ -18,18 +25,16 @@ def image_renaming(log=print, prefix='comfyUI', ext=".png", indir='INPUT_FILE_HE
     os.makedirs(outdir, exist_ok=True)
 
     file_list = [f for f in os.listdir(indir) if f.lower().endswith(ext)]
-    renamed = 0
     last_filename = None
 
     for i, filename in enumerate(file_list, start=1):
         filepath = os.path.join(indir, filename)
         try:
-            new_name = f"{prefix}_{i:04d}{ext}"
-            shutil.copy2(filepath, os.path.join(outdir, new_name))
-            log(f"[log]{filename} → {new_name}")
-            renamed += 1
-            last_filename = new_name
+            last_filename = __rename__(log, i, filename, filepath, prefix, ext, outdir)
         except Exception as e:
             log(f"{filename} 이름 변경 실패: {e}")
 
-    return renamed, last_filename
+    rt = __rename__.counter['count']
+    __rename__.reset_count()
+
+    return rt, last_filename

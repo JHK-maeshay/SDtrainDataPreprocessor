@@ -31,5 +31,8 @@ def convert_images(log, indir='INPUT_FILE_HERE', outdir='OUTPUT_HERE'):
                 __png_convert__(log, filepath, filename, outdir)
         except Exception as e:
             log(f"처리 실패: {filename} ({e})")
-    return __jpg_convert__.counter['count']+__png_convert__.counter['count']
+    rt = __jpg_convert__.counter['count']+__png_convert__.counter['count']
+    __jpg_convert__.reset_count()
+    __png_convert__.reset_count()
+    return rt
 
